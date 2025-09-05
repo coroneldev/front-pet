@@ -3,7 +3,7 @@
     
     <q-card flat bordered>
       <q-card-section class="bg-grey-2 my-card">
-        <div class="text-h5 text-center">Mi Perfil</div>
+        <div class="text-h5 text-center">Perfil</div>
       </q-card-section>
 
       <q-separator color="grey-5" />

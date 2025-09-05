@@ -43,7 +43,7 @@
             <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'perfil'"
               @click="link = 'perfil'" active-class="my-menu-link" to="/perfil">
               <q-item-section avatar><q-icon name="assignment_ind" /></q-item-section>
-              <q-item-section>Mi Perfil</q-item-section>
+              <q-item-section>Perfil</q-item-section>
             </q-item>
 
             <q-item v-if="rol.id == 2" clickable v-ripple :active="link === 'cursos-inscritos'"
@@ -87,6 +87,14 @@
               <q-item-section avatar><q-icon name="view_module" /></q-item-section>
               <q-item-section>Áreas</q-item-section>
             </q-item>
+
+            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'clientes'" @click="link = 'clientes'"
+              active-class="my-menu-link" to="/clientes">
+              <q-item-section avatar><q-icon name="view_module" /></q-item-section>
+              <q-item-section>Áreas</q-item-section>
+            </q-item>
+
+
 
           </q-list>
         </q-scroll-area>

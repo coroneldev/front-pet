@@ -118,6 +118,10 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-area",
         component: () => import("./components/area/EditArea.vue"),
       },
+
+      /*Nuevos modulos*/
+
+      
     ]
   }
 ];
