@@ -148,7 +148,7 @@ import "vue3-toastify/dist/index.css";
 import { Loading } from 'quasar';
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'Perfil',
   data () {
     return { 
       usuario: {} as Usuario,
@@ -192,12 +192,28 @@ export default defineComponent({
     },
     getData() {
       Loading.show({message: "Cargando..."});
-      this.usuario = JSON.parse(atob(localStorage.getItem("usuario") || '{}'));
-      
+
+      const usuarioLocal = localStorage.getItem("usuario");
+      if (usuarioLocal) {
+        try {
+          this.usuario = JSON.parse(atob(usuarioLocal));
+        } catch (e) {
+          console.error("Error decodificando usuario Base64:", e);
+          this.usuario = {} as Usuario;
+        }
+      }
+
+      // Cargar usuario desde API
       UsuarioService.get(this.usuario.id)
         .then((response: any) => {
           if(response.data.status) {
-            this.usuario = response.data.data;
+            // Decodificar Base64 del backend si es necesario
+            if (response.data.data.usuario) {
+              this.usuario = JSON.parse(atob(response.data.data.usuario));
+            }
+            if (response.data.data.rol) {
+              this.usuario.rol = JSON.parse(atob(response.data.data.rol));
+            }
             Loading.hide();
             toast(response.data.message, {"type": "success"});
           } else {
@@ -205,13 +221,25 @@ export default defineComponent({
             toast(response.data.message, {"type": "error"});
           }
         })
-        .catch((e: Error) => console.log(e));
+        .catch((e: Error) => {
+          Loading.hide();
+          console.error(e);
+        });
     },
     onGuardar() {
       Loading.show({message: "Cargando..."});
-      this.usuario = JSON.parse(atob(localStorage.getItem("usuario") || '{}'));
-    
-      let data = {
+
+      const usuarioLocal = localStorage.getItem("usuario");
+      if (usuarioLocal) {
+        try {
+          this.usuario = JSON.parse(atob(usuarioLocal));
+        } catch (e) {
+          console.error("Error decodificando usuario Base64:", e);
+          this.usuario = {} as Usuario;
+        }
+      }
+
+      const data = {
         antiguo_password: this.cambioPassword.antiguo_password,
         nuevo_password: this.cambioPassword.nuevo_password
       };
@@ -219,7 +247,12 @@ export default defineComponent({
       UsuarioService.cambiarPassword(this.usuario.id, data)
         .then((response: any) => {
           if(response.data.status) {
-            this.usuario = response.data.data;
+            if (response.data.data.usuario) {
+              this.usuario = JSON.parse(atob(response.data.data.usuario));
+            }
+            if (response.data.data.rol) {
+              this.usuario.rol = JSON.parse(atob(response.data.data.rol));
+            }
             this.alert = false;
             Loading.hide();
             toast(response.data.message, {"type": "success"});
@@ -229,7 +262,10 @@ export default defineComponent({
             toast(response.data.message, {"type": "error"});
           }
         })
-        .catch((e: Error) => console.log(e));
+        .catch((e: Error) => {
+          Loading.hide();
+          console.error(e);
+        });
     },
     listarRol() {
       RolService.getAll()

@@ -13,5 +13,4 @@ export default interface Curso {
     imagen: any;
     estado: string;
     user_id: number;
-    area_id: number;
 }

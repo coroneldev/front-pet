@@ -44,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("./components/usuario/CreateUsuario.vue"),
       },
       {
+        path: "/usuarios/show/:id",
+        name: "show-usuario",
+        component: () => import("./components/usuario/ShowUsuario.vue"),
+      },
+      {
         path: "/usuarios/edit/:id",
         name: "edit-usuario",
         component: () => import("./components/usuario/EditUsuario.vue"),
@@ -68,26 +73,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-imagen-curso",
         component: () => import("./components/curso/EditImagenCurso.vue"),
       },
-      {
-        path: "/inscripciones",
-        name: "list-inscripcion",
-        component: () => import("./components/inscripcion/ListInscripcion.vue"),
-      },
-      {
-        path: "/inscripciones/create",
-        name: "create-inscripcion",
-        component: () => import("./components/inscripcion/CreateInscripcion.vue"),
-      },
-      {
-        path: "/inscripciones/edit/:id",
-        name: "edit-inscripcion",
-        component: () => import("./components/inscripcion/EditInscripcion.vue"),
-      },
-      {
-        path: "/inscripciones-usuario",
-        name: "list-inscripcion-usuario",
-        component: () => import("./components/inscripcion-usuario/ListInscripcion.vue"),
-      },
+      
       {
         path: "/roles",
         name: "list-rol",
@@ -103,23 +89,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-rol",
         component: () => import("./components/rol/EditRol.vue"),
       },
-      {
-        path: "/areas",
-        name: "list-area",
-        component: () => import("./components/area/ListArea.vue"),
-      },
-      {
-        path: "/areas/create",
-        name: "create-area",
-        component: () => import("./components/area/CreateArea.vue"),
-      },
-      {
-        path: "/areas/edit/:id",
-        name: "edit-area",
-        component: () => import("./components/area/EditArea.vue"),
-      },
-
-      /*Nuevos modulos*/
 
       
     ]

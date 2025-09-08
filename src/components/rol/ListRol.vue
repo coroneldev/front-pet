@@ -10,12 +10,12 @@
 
       <q-card-section class="bg-grey-2 my-card">
 
-        <q-btn color="primary" label="Nuevo" icon-right="add" to="/roles/create" />
+        <q-btn color="green-7" text-color="white" label="Nuevo" icon-right="add" to="/roles/create" />
         
         <div class="q-mt-md">
 
           <q-markup-table flat bordered>
-            <thead class="bg-blue-2">
+            <thead class="bg-green-2">
               <tr>
                 <th class="text-left">ID</th>
                 <th class="text-left">Nombre</th>
@@ -29,8 +29,8 @@
                 <td class="text-left">{{ rol.nombre }}</td>
                 <td class="text-left">{{ rol.descripcion }}</td>
                 <td>
-                  <q-btn round color="white" text-color="black" icon="mode_edit" class="q-ml-sm" :to="'/roles/edit/'+rol.id" title="Editar"></q-btn>
-                  <q-btn round color="white" text-color="black" icon="delete" class="q-ml-sm" @click="onModal(rol.id)" title="Eliminar"></q-btn>
+                  <q-btn round color="green-7" text-color="white" icon="mode_edit" class="q-ml-sm" :to="'/roles/edit/'+rol.id" title="Editar"></q-btn>
+                  <q-btn round color="green-7" text-color="white" icon="delete" class="q-ml-sm" @click="onModal(rol.id!)" title="Eliminar"></q-btn>
                 </td>
               </tr>
             </tbody>
@@ -52,7 +52,7 @@
 
         <q-card-actions align="right">
           <q-btn color="white" text-color="black" label="Cancelar" v-close-popup />
-          <q-btn color="primary" label="Aceptar" @click="onEliminar()" />
+          <q-btn color="green-7" label="Aceptar" @click="onEliminar()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -69,7 +69,7 @@ import "vue3-toastify/dist/index.css";
 import { Loading } from 'quasar';
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'ListRol',
   data () {
     return {
       roles: [] as Rol[],
@@ -82,18 +82,18 @@ export default defineComponent({
       Loading.show({message: "Cargando..."});
       RolService.getAll()
         .then((response: any) => {
-          if(response.data.status == true) {
+          Loading.hide();
+          if(response.data.status) {
             this.roles = response.data.data;
-            Loading.hide();
             toast(response.data.message, {"type": "success"});
           }
           else{
-            Loading.hide();
             toast(response.data.message, {"type": "error"});
           }
         })
         .catch((e: Error) => {
           console.log(e);
+          Loading.hide();
         });
     },
     onModal(id: number){
@@ -104,20 +104,20 @@ export default defineComponent({
       Loading.show({message: "Cargando..."});
       RolService.delete(this.idEliminar)
         .then((response: any) => {
-          if(response.data.status == true) {
+          Loading.hide();
+          if(response.data.status) {
             this.alert = false;
             this.idEliminar = 0;
             this.listar();
-            Loading.hide();
             toast(response.data.message, {"type": "success"});
           }
           else{
-            Loading.hide();
             toast(response.data.message, {"type": "error"});
           }
         })
         .catch((e: Error) => {
           console.log(e);
+          Loading.hide();
         });
     }
 
@@ -128,7 +128,9 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.my-card {
+  border-radius: 12px;
+  padding: 16px;
+}
 </style>

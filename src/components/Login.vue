@@ -6,7 +6,7 @@
         <div class="text-h5 text-weight-bold text-white text-center">
           <q-icon name="pets" size="40px" class="q-mb-sm" />
           <div><span class="text-warning"> INICIAR SESIÓN </span></div>
-          <div>Veterinaria RC</div>
+          <div>COMVET </div>
         </div>
       </q-card-section>
 

@@ -41,7 +41,7 @@
                 <td>
                   <q-btn round color="white" text-color="black" icon="mode_edit" class="q-ml-sm" :to="'/cursos/edit/'+curso.id" title="Editar"></q-btn>
                   <q-btn round color="white" text-color="black" icon="image" class="q-ml-sm" :to="'/cursos/edit-imagen/'+curso.id" title="Editar Imagen"></q-btn>
-                  <q-btn round color="white" text-color="black" icon="delete" class="q-ml-sm" @click="onModal(curso.id)" title="Eliminar"></q-btn>
+                  <q-btn round color="white" text-color="black" icon="delete" class="q-ml-sm" @click="onModal(curso.id!)" title="Eliminar"></q-btn>
                 </td>
               </tr>
             </tbody>

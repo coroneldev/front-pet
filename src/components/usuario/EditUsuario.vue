@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    
+
     <q-card flat bordered>
       <q-card-section class="bg-grey-2 my-card">
         <div class="text-h5 text-center">Editar Usuario</div>
@@ -14,11 +14,11 @@
           <div class="col-12 col-md-12 q-pa-xs">
             <div>
               <div v-for="(errorArray, index) in errores" :key="index">
-                  <ul>
-                    <li v-for="(error, index) in errorArray" :key="index">
-                      <span class="text-red">{{ error }}</span>
-                    </li>
-                  </ul>
+                <ul>
+                  <li v-for="(error, index) in errorArray" :key="index">
+                    <span class="text-red">{{ error }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -41,10 +41,11 @@
             <q-input outlined v-model="usuario.cedula_identidad" label="Cédula de Identidad *" counter maxlength="20" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.expedicion_ci" label="Expedición *" :options="optionsExpedicion" option-label="label" option-value="value" emit-value map-options />
+            <q-select outlined v-model="usuario.expedicion_ci" label="Expedición *" :options="optionsExpedicion"
+              option-label="label" option-value="value" emit-value map-options />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.fecha_nacimiento" label="Fecha de Nacimiento *" counter maxlength="10" >
+            <q-input outlined v-model="usuario.fecha_nacimiento" label="Fecha de Nacimiento *" counter maxlength="10">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -65,17 +66,19 @@
 
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.sexo" label="Sexo *" :options="optionsSexo" option-label="label" option-value="value" emit-value map-options />
+            <q-select outlined v-model="usuario.sexo" label="Sexo *" :options="optionsSexo" option-label="label"
+              option-value="value" emit-value map-options />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.celular" label="Celular *" counter maxlength="20" >
+            <q-input outlined v-model="usuario.celular" label="Celular *" counter maxlength="20">
               <template v-slot:hint>
                 Preferentemente con Whatsaap
               </template>
             </q-input>
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.estado" label="Estado *" :options="optionsEstado" option-label="label" option-value="value" emit-value map-options/>
+            <q-select outlined v-model="usuario.estado" label="Estado *" :options="optionsEstado" option-label="label"
+              option-value="value" emit-value map-options />
           </div>
         </div>
 
@@ -91,12 +94,13 @@
             <!-- <q-input outlined v-model="usuario.password" label="Contraseña *" type="password" counter maxlength="50" /> -->
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.rol_id" label="Rol *" :options="optionsRol" option-label="nombre" option-value="id" emit-value map-options/>
+            <q-select outlined v-model="usuario.rol_id" label="Rol *" :options="optionsRol" option-label="nombre"
+              option-value="id" emit-value map-options />
           </div>
         </div>
 
         <div class="row q-mt-md">
-          <q-btn color="primary" label="Guardar" @click="onModal()" />
+          <q-btn color="green-7" text-white label="Guardar" @click="onModal()" />
           <q-btn color="white" text-color="black" label="Cancelar" class="q-ml-sm" to="/usuarios" />
         </div>
 
@@ -115,11 +119,11 @@
 
         <q-card-actions align="right">
           <q-btn color="white" text-color="black" label="Cancelar" v-close-popup />
-          <q-btn color="primary" label="Aceptar" @click="onGuardar()" />
+          <q-btn color="green-7" text-white label="Aceptar" @click="onGuardar()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
-    
+
   </div>
 </template>
 
@@ -135,77 +139,37 @@ import { Loading } from 'quasar';
 
 export default defineComponent({
   name: 'HelloWorld',
-  data () {
+  data() {
     return {
       usuario: {} as Usuario,
       optionsRol: [] as Rol[],
       alert: ref(false),
-      errores: {},
+      errores: {} as any,
       optionsExpedicion: [
-        {
-          label: 'LA PAZ',
-          value: 'LP',
-        },
-        {
-          label: 'ORURO',
-          value: 'OR',
-        },
-        {
-          label: 'POTOSÍ',
-          value: 'PT',
-        },
-        {
-          label: 'COCHABAMBA',
-          value: 'CB',
-        },
-        {
-          label: 'SANTA CRUZ',
-          value: 'SC',
-        },
-        {
-          label: 'BENI',
-          value: 'BN',
-        },
-        {
-          label: 'PANDO',
-          value: 'PA',
-        },
-        {
-          label: 'TARIJA',
-          value: 'TJ',
-        },
-        {
-          label: 'CHUQUISACA',
-          value: 'CH',
-        }
+        { label: 'LA PAZ', value: 'LP' },
+        { label: 'ORURO', value: 'OR' },
+        { label: 'POTOSÍ', value: 'PT' },
+        { label: 'COCHABAMBA', value: 'CB' },
+        { label: 'SANTA CRUZ', value: 'SC' },
+        { label: 'BENI', value: 'BN' },
+        { label: 'PANDO', value: 'PA' },
+        { label: 'TARIJA', value: 'TJ' },
+        { label: 'CHUQUISACA', value: 'CH' }
       ],
       optionsSexo: [
-        {
-          label: 'MASCULINO',
-          value: 'MASCULINO',
-        },
-        {
-          label: 'FEMENINO',
-          value: 'FEMENINO',
-        }
+        { label: 'MASCULINO', value: 'MASCULINO' },
+        { label: 'FEMENINO', value: 'FEMENINO' }
       ],
       optionsEstado: [
-        {
-          label: 'ACTIVO',
-          value: 'ACTIVO',
-        },
-        {
-          label: 'INACTIVO',
-          value: 'INACTIVO',
-        }
+        { label: 'ACTIVO', value: 'ACTIVO' },
+        { label: 'INACTIVO', value: 'INACTIVO' }
       ],
       myLocale: {
-        /* starting with Sunday */
         days: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
         daysShort: 'Dom_Lun_Mar_Mié_Jue_Vie_Sáb'.split('_'),
         months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
         monthsShort: 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_'),
-        firstDayOfWeek: 1, // 0-6, 0 - Sunday, 1 Monday, ...
+        firstDayOfWeek: 1,
         format24h: true,
         pluralDay: 'dias'
       }
@@ -216,17 +180,16 @@ export default defineComponent({
       this.alert = true;
     },
     getData() {
-      Loading.show({message: "Cargando..."});
+      Loading.show({ message: "Cargando..." });
       UsuarioService.get(this.$route.params.id)
         .then((response: any) => {
-          if(response.data.status == true) {
+          if (response.data.status == true) {
             this.usuario = response.data.data;
             Loading.hide();
-            toast(response.data.message, {"type": "success"});
-          }
-          else{
+            toast(response.data.message, { "type": "success" });
+          } else {
             Loading.hide();
-            toast(response.data.message, {"type": "error"});
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
@@ -234,7 +197,7 @@ export default defineComponent({
         });
     },
     onGuardar() {
-      Loading.show({message: "Cargando..."});
+      Loading.show({ message: "Cargando..." });
       let data = {
         nombres: this.usuario.nombres,
         apellido_paterno: this.usuario.apellido_paterno,
@@ -252,18 +215,16 @@ export default defineComponent({
 
       UsuarioService.update(this.$route.params.id, data)
         .then((response: any) => {
-          if(response.data.status == true) {
+          if (response.data.status == true) {
             this.usuario = response.data.data;
             this.alert = false;
-            //this.usuario = {} as Usuario;
             Loading.hide();
-            toast(response.data.message, {"type": "success"});
+            toast(response.data.message, { "type": "success" });
             this.$router.push('/usuarios');
-          }
-          else{
+          } else {
             Loading.hide();
             this.errores = response.data.errors;
-            toast(response.data.message, {"type": "error"});
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
@@ -273,12 +234,10 @@ export default defineComponent({
     listarRol() {
       RolService.getAll()
         .then((response: any) => {
-          if(response.data.status == true) {
+          if (response.data.status == true) {
             this.optionsRol = response.data.data;
-            //toast(response.data.message, {"type": "success"})
-          }
-          else{
-            toast(response.data.message, {"type": "error"});
+          } else {
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
@@ -290,11 +249,8 @@ export default defineComponent({
     this.listarRol();
     this.getData();
   }
-  
+
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
+<style scoped></style>

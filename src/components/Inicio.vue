@@ -20,8 +20,6 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue';
-//import AreaService from "@/services/AreaService";
-//import Area from "@/entities/Area";
 //import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -29,25 +27,11 @@ export default defineComponent({
   name: 'HelloWorld',
   data () {
     return {
-      //areas: [] as Area[],
+
     }
   },
   methods: {
-    // listar() {
-    //   AreaService.getAll()
-    //     .then((response: any) => {
-    //       if(response.data.status == true) {
-    //         this.areas = response.data.data;
-    //         toast(response.data.message, {"type": "success"})
-    //       }
-    //       else{
-    //         toast(response.data.message, {"type": "error"})
-    //       }
-    //     })
-    //     .catch((e: Error) => {
-    //       console.log(e);
-    //     });
-    // },
+
   },
   mounted() {
     //this.listar();

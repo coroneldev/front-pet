@@ -40,20 +40,14 @@
               <q-item-section>Inicio</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'perfil'"
-              @click="link = 'perfil'" active-class="my-menu-link" to="/perfil">
+            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'perfil'" @click="link = 'perfil'"
+              active-class="my-menu-link" to="/perfil">
               <q-item-section avatar><q-icon name="assignment_ind" /></q-item-section>
               <q-item-section>Perfil</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 2" clickable v-ripple :active="link === 'cursos-inscritos'"
-              @click="link = 'cursos-inscritos'" active-class="my-menu-link" to="/inscripciones-usuario">
-              <q-item-section avatar><q-icon name="fact_check" /></q-item-section>
-              <q-item-section>Cursos Inscritos</q-item-section>
-            </q-item>
-
             <q-separator v-if="rol.id == 1" spaced />
-            <q-item-label v-if="rol.id == 1" header class="text-green-7">Transaccionales</q-item-label>
+            <q-item-label v-if="rol.id == 1" header class="text-green-7">Administracion</q-item-label>
 
             <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'usuarios'" @click="link = 'usuarios'"
               active-class="my-menu-link" to="/usuarios">
@@ -61,17 +55,11 @@
               <q-item-section>Usuarios</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'cursos'" @click="link = 'cursos'"
+            <!--<q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'cursos'" @click="link = 'cursos'"
               active-class="my-menu-link" to="/cursos">
               <q-item-section avatar><q-icon name="article" /></q-item-section>
               <q-item-section>Cursos</q-item-section>
-            </q-item>
-
-            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'inscripciones'"
-              @click="link = 'inscripciones'" active-class="my-menu-link" to="/inscripciones">
-              <q-item-section avatar><q-icon name="edit_square" /></q-item-section>
-              <q-item-section>Inscripciones</q-item-section>
-            </q-item>
+            </q-item>-->
 
             <q-separator v-if="rol.id == 1" spaced />
             <q-item-label v-if="rol.id == 1" header class="text-green-7">Paramétricas</q-item-label>
@@ -82,18 +70,26 @@
               <q-item-section>Roles</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'areas'" @click="link = 'areas'"
-              active-class="my-menu-link" to="/areas">
-              <q-item-section avatar><q-icon name="view_module" /></q-item-section>
-              <q-item-section>Áreas</q-item-section>
+            <!--<q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'cursos'"
+              @click="link = 'cursos'" active-class="my-menu-link" to="/cursos">
+              <q-item-section avatar><q-icon name="vaccines" /></q-item-section>
+              <q-item-section>Vacunas</q-item-section>
+            </q-item>-->
+
+          <!--  <q-separator v-if="rol.id == 1 || rol.id == 2" spaced />
+            <q-item-label v-if="rol.id == 1 || rol.id == 2" header class="text-green-7">Transacciones</q-item-label>
+
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'cursos'"
+              @click="link = 'cursos'" active-class="my-menu-link" to="/cursos">
+              <q-item-section avatar><q-icon name="pets" /></q-item-section>
+              <q-item-section>Vacunacion</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 1" clickable v-ripple :active="link === 'clientes'" @click="link = 'clientes'"
-              active-class="my-menu-link" to="/clientes">
-              <q-item-section avatar><q-icon name="view_module" /></q-item-section>
-              <q-item-section>Áreas</q-item-section>
-            </q-item>
-
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'cursos'"
+              @click="link = 'cursos'" active-class="my-menu-link" to="/cursos">
+              <q-item-section avatar><q-icon name="article" /></q-item-section>
+              <q-item-section>Citas</q-item-section>
+            </q-item>-->
 
 
           </q-list>

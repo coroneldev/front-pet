@@ -26,31 +26,31 @@
 
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.nombres" label="Nombres *" counter maxlength="100" />
+            <q-input outlined v-model="usuario.nombres" label="Nombres *" counter maxlength="100" color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.apellido_paterno" label="Apellido Paterno" counter maxlength="100" />
+            <q-input outlined v-model="usuario.apellido_paterno" label="Apellido Paterno" counter maxlength="100" color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.apellido_materno" label="Apellido Materno" counter maxlength="100" />
+            <q-input outlined v-model="usuario.apellido_materno" label="Apellido Materno" counter maxlength="100" color="green-7" />
           </div>
         </div>
 
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.cedula_identidad" label="Cédula de Identidad *" counter maxlength="20" />
+            <q-input outlined v-model="usuario.cedula_identidad" label="Cédula de Identidad *" counter maxlength="20" color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.expedicion_ci" label="Expedición *" :options="optionsExpedicion" option-label="label" option-value="value" emit-value map-options />
+            <q-select outlined v-model="usuario.expedicion_ci" label="Expedición *" :options="optionsExpedicion" option-label="label" option-value="value" emit-value map-options color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.fecha_nacimiento" label="Fecha de Nacimiento *" counter maxlength="10" >
+            <q-input outlined v-model="usuario.fecha_nacimiento" label="Fecha de Nacimiento *" counter maxlength="10" color="green-7">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                     <q-date v-model="usuario.fecha_nacimiento" minimal mask="YYYY-MM-DD" :locale="myLocale">
                       <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
+                        <q-btn v-close-popup label="Close" color="green-7" flat />
                       </div>
                     </q-date>
                   </q-popup-proxy>
@@ -65,17 +65,17 @@
 
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.sexo" label="Sexo *" :options="optionsSexo" option-label="label" option-value="value" emit-value map-options />
+            <q-select outlined v-model="usuario.sexo" label="Sexo *" :options="optionsSexo" option-label="label" option-value="value" emit-value map-options color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.celular" label="Celular *" counter maxlength="20" >
+            <q-input outlined v-model="usuario.celular" label="Celular *" counter maxlength="20" color="green-7">
               <template v-slot:hint>
-                Preferentemente con Whatsaap
+                Preferentemente con WhatsApp
               </template>
             </q-input>
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.estado" label="Estado *" :options="optionsEstado" option-label="label" option-value="value" emit-value map-options/>
+            <q-select outlined v-model="usuario.estado" label="Estado *" :options="optionsEstado" option-label="label" option-value="value" emit-value map-options color="green-7" />
           </div>
         </div>
         
@@ -85,18 +85,18 @@
         
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.email" label="Correo Electrónico *" counter maxlength="50" />
+            <q-input outlined v-model="usuario.email" label="Correo Electrónico *" counter maxlength="50" color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-input outlined v-model="usuario.password" label="Contraseña *" type="password" counter maxlength="50" />
+            <q-input outlined v-model="usuario.password" label="Contraseña *" type="password" counter maxlength="50" color="green-7" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="usuario.rol_id" label="Rol *" :options="optionsRol" option-label="nombre" option-value="id" emit-value map-options/>
+            <q-select outlined v-model="usuario.rol_id" label="Rol *" :options="optionsRol" option-label="nombre" option-value="id" emit-value map-options color="green-7" />
           </div>
         </div>
 
         <div class="row q-mt-md">
-          <q-btn color="primary" label="Guardar" @click="onModal()" />
+          <q-btn color="green-7" text-color="white" label="Guardar" @click="onModal()" />
           <q-btn color="white" text-color="black" label="Cancelar" class="q-ml-sm" to="/usuarios" />
         </div>
 
@@ -115,7 +115,7 @@
 
         <q-card-actions align="right">
           <q-btn color="white" text-color="black" label="Cancelar" v-close-popup />
-          <q-btn color="primary" label="Aceptar" @click="onGuardar()" />
+          <q-btn color="green-7" text-color="white" label="Aceptar" @click="onGuardar()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -140,109 +140,52 @@ export default defineComponent({
       usuario: {} as Usuario,
       optionsRol: [] as Rol[],
       alert: ref(false),
-      errores: {},
+      errores: {} as any,
       optionsExpedicion: [
-        {
-          label: 'LA PAZ',
-          value: 'LP',
-        },
-        {
-          label: 'ORURO',
-          value: 'OR',
-        },
-        {
-          label: 'POTOSÍ',
-          value: 'PT',
-        },
-        {
-          label: 'COCHABAMBA',
-          value: 'CB',
-        },
-        {
-          label: 'SANTA CRUZ',
-          value: 'SC',
-        },
-        {
-          label: 'BENI',
-          value: 'BN',
-        },
-        {
-          label: 'PANDO',
-          value: 'PA',
-        },
-        {
-          label: 'TARIJA',
-          value: 'TJ',
-        },
-        {
-          label: 'CHUQUISACA',
-          value: 'CH',
-        }
+        { label: 'LA PAZ', value: 'LP' },
+        { label: 'ORURO', value: 'OR' },
+        { label: 'POTOSÍ', value: 'PT' },
+        { label: 'COCHABAMBA', value: 'CB' },
+        { label: 'SANTA CRUZ', value: 'SC' },
+        { label: 'BENI', value: 'BN' },
+        { label: 'PANDO', value: 'PA' },
+        { label: 'TARIJA', value: 'TJ' },
+        { label: 'CHUQUISACA', value: 'CH' }
       ],
       optionsSexo: [
-        {
-          label: 'MASCULINO',
-          value: 'MASCULINO',
-        },
-        {
-          label: 'FEMENINO',
-          value: 'FEMENINO',
-        }
+        { label: 'MASCULINO', value: 'MASCULINO' },
+        { label: 'FEMENINO', value: 'FEMENINO' }
       ],
       optionsEstado: [
-        {
-          label: 'ACTIVO',
-          value: 'ACTIVO',
-        },
-        {
-          label: 'INACTIVO',
-          value: 'INACTIVO',
-        }
+        { label: 'ACTIVO', value: 'ACTIVO' },
+        { label: 'INACTIVO', value: 'INACTIVO' }
       ],
       myLocale: {
-        /* starting with Sunday */
         days: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
         daysShort: 'Dom_Lun_Mar_Mié_Jue_Vie_Sáb'.split('_'),
         months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
         monthsShort: 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_'),
-        firstDayOfWeek: 1, // 0-6, 0 - Sunday, 1 Monday, ...
+        firstDayOfWeek: 1,
         format24h: true,
         pluralDay: 'dias'
       }
     }
   },
   methods: {
-    onModal() {
-      this.alert = true;
-    },
+    onModal() { this.alert = true; },
     onGuardar() {
       Loading.show({message: "Cargando..."});
-      let data = {
-        nombres: this.usuario.nombres,
-        apellido_paterno: this.usuario.apellido_paterno,
-        apellido_materno: this.usuario.apellido_materno,
-        cedula_identidad: this.usuario.cedula_identidad,
-        expedicion_ci: this.usuario.expedicion_ci,
-        fecha_nacimiento: this.usuario.fecha_nacimiento,
-        sexo: this.usuario.sexo,
-        celular: this.usuario.celular,
-        email: this.usuario.email,
-        password: this.usuario.password,
-        estado: this.usuario.estado,
-        rol_id: this.usuario.rol_id,
-      };
+      let data = { ...this.usuario };
 
       UsuarioService.create(data)
         .then((response: any) => {
-          if(response.data.status == true) {
-            this.usuario = response.data.data;
-            this.alert = false;
+          if(response.data.status) {
             this.usuario = {} as Usuario;
+            this.alert = false;
             Loading.hide();
             toast(response.data.message, {"type": "success"});
             this.$router.push('/usuarios');
-          }
-          else{
+          } else {
             Loading.hide();
             this.errores = response.data.errors;
             toast(response.data.message, {"type": "error"});
@@ -250,32 +193,30 @@ export default defineComponent({
         })
         .catch((e: Error) => {
           console.log(e);
+          Loading.hide();
         });
     },
     listarRol() {
       RolService.getAll()
         .then((response: any) => {
-          if(response.data.status == true) {
+          if(response.data.status) {
             this.optionsRol = response.data.data;
-            //toast(response.data.message, {"type": "success"})
-          }
-          else{
+          } else {
             toast(response.data.message, {"type": "error"});
           }
         })
-        .catch((e: Error) => {
-          console.log(e);
-        });
+        .catch((e: Error) => { console.log(e); });
     },
   },
   mounted() {
     this.listarRol();
   }
-  
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.my-card {
+  border-radius: 12px;
+  padding: 16px;
+}
 </style>

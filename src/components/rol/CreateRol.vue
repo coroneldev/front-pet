@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    
+
     <q-card flat bordered>
       <q-card-section class="bg-grey-2 my-card">
         <div class="text-h5 text-center">Nuevo Rol</div>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="row q-mt-md">
-          <q-btn color="primary" label="Guardar" @click="onModal()" />
+          <q-btn color="green-7" text-color="white" label="Guardar" @click="onModal()" />
           <q-btn color="white" text-color="black" label="Cancelar" class="q-ml-sm" to="/roles" />
         </div>
 
@@ -39,11 +39,11 @@
 
         <q-card-actions align="right">
           <q-btn color="white" text-color="black" label="Cancelar" v-close-popup />
-          <q-btn color="primary" label="Aceptar" @click="onGuardar()" />
+          <q-btn color="green-7" text-color="white" label="Aceptar" @click="onGuardar()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
-    
+
   </div>
 </template>
 
@@ -56,19 +56,19 @@ import "vue3-toastify/dist/index.css";
 import { Loading } from 'quasar';
 
 export default defineComponent({
-  name: 'HelloWorld',
-  data () {
+  name: 'CreateRol',
+  data() {
     return {
       rol: {} as Rol,
       alert: ref(false),
     }
   },
   methods: {
-    onModal(){
+    onModal() {
       this.alert = true;
     },
     onGuardar() {
-      Loading.show({message: "Cargando..."});
+      Loading.show({ message: "Cargando..." });
       let data = {
         nombre: this.rol.nombre,
         descripcion: this.rol.descripcion,
@@ -76,29 +76,30 @@ export default defineComponent({
 
       RolService.create(data)
         .then((response: any) => {
-          if(response.data.status == true) {
-            this.rol = response.data.data;
-            this.alert = false;
+          Loading.hide();
+          if (response.data.status) {
             this.rol = {} as Rol;
-            Loading.hide();
-            toast(response.data.message, {"type": "success"});
+            this.alert = false;
+            toast(response.data.message, { "type": "success" });
             this.$router.push('/roles');
           }
-          else{
-            Loading.hide();
-            toast(response.data.message, {"type": "error"});
+          else {
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
           console.log(e);
+          Loading.hide();
         });
     }
   },
-  
+
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.my-card {
+  border-radius: 12px;
+  padding: 16px;
+}
 </style>
