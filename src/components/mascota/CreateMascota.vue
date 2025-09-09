@@ -1,0 +1,195 @@
+<template>
+  <div class="hello">
+    <q-card flat bordered>
+      <q-card-section class="bg-grey-2 my-card">
+        <div class="text-h5 text-center">Nueva Mascota</div>
+      </q-card-section>
+
+      <q-separator color="grey-5" />
+
+      <q-card-section class="bg-grey-2 my-card">
+
+        <div class="row q-mt-md">
+          <div class="col-12 col-md-6 q-pa-xs">
+            <q-input outlined v-model="mascota.nombre" label="Nombre *" counter maxlength="50" />
+          </div>
+          <div class="col-12 col-md-6 q-pa-xs">
+            <q-input outlined v-model="mascota.codigo" label="Código *" counter maxlength="20" />
+          </div>
+        </div>
+
+        <div class="row q-mt-md">
+          <div class="col-12 col-md-4 q-pa-xs">
+            <q-input outlined v-model="mascota.edad" label="Edad" type="number" />
+          </div>
+          <div class="col-12 col-md-4 q-pa-xs">
+            <q-input outlined v-model="mascota.peso" label="Peso (kg)" type="number" />
+          </div>
+          <div class="col-12 col-md-4 q-pa-xs">
+            <q-select outlined v-model="mascota.sexo" :options="['MACHO', 'HEMBRA']" label="Sexo" />
+          </div>
+        </div>
+
+        <div class="row q-mt-md">
+          <div class="col-12 col-md-6 q-pa-xs">
+            <q-input outlined v-model="mascota.especie" label="Especie *" />
+          </div>
+          <div class="col-12 col-md-6 q-pa-xs">
+            <q-input outlined v-model="mascota.raza" label="Raza" />
+          </div>
+        </div>
+
+        <div class="row q-mt-md">
+          <div class="col-12 q-pa-xs">
+            <q-input outlined v-model="mascota.detalles" type="textarea" label="Detalles" />
+          </div>
+        </div>
+
+        <div class="row q-mt-md">
+          <div class="col-12 q-pa-xs">
+            <q-uploader label="Subir foto" accept="image/*" @added="onFileAdded" :max-files="1" />
+          </div>
+        </div>
+
+        <div class="row q-mt-md">
+          <div class="col-12 q-pa-xs">
+            <q-select outlined v-model="selectedClienteId" :options="clientesOptions" label="Cliente *"
+              option-label="nombre" option-value="id" />
+
+
+          </div>
+
+        </div>
+
+
+        <div class="row q-mt-md">
+          <q-btn color="green-7" text-color="white" label="Guardar" @click="onModal()" />
+          <q-btn color="white" text-color="black" label="Cancelar" class="q-ml-sm" to="/mascotas" />
+        </div>
+
+      </q-card-section>
+    </q-card>
+
+    <q-dialog v-model="alert">
+      <q-card style="width: 500px; max-width: 70vw;">
+        <q-card-section>
+          <div class="text-h6">Guardar Registro</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          ¿Está seguro de guardar la mascota?
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn color="white" text-color="black" label="Cancelar" v-close-popup />
+          <q-btn color="green-7" text-color="white" label="Aceptar" @click="onGuardar()" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+  </div>
+</template>
+
+<script lang="ts">
+import { ref, defineComponent } from 'vue';
+import MascotaService from "@/services/MascotaService";
+import ClienteService from "@/services/ClienteService";
+import Mascota from "@/entities/Mascota";
+import Cliente from "@/entities/Cliente";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import { Loading } from 'quasar';
+
+export default defineComponent({
+  name: 'CreateMascota',
+  data() {
+    return {
+      mascota: {} as Mascota,
+      alert: ref(false),
+      clientesOptions: [] as Cliente[],
+      file: null as File | null,
+      selectedClienteId: null as number | null
+    }
+  },
+  methods: {
+    onModal() {
+      this.alert = true;
+    },
+    listarClientes() {
+      Loading.show({ message: "Cargando clientes..." });
+      ClienteService.getAll()
+        .then((response: any) => {
+          Loading.hide();
+          if (response.data.status) {
+            this.clientesOptions = response.data.data;
+          } else {
+            toast(response.data.message, { type: "error" });
+          }
+        })
+        .catch((e: Error) => {
+          console.log(e);
+          Loading.hide();
+          toast("Error al cargar clientes", { type: "error" });
+        });
+    },
+    onFileAdded(files: File[]) {
+      this.file = files[0] || null;
+    },
+    onGuardar() {
+      if (!this.selectedClienteId) {
+        toast("Seleccione un cliente válido.", { type: "error" });
+        return;
+      }
+
+      Loading.show({ message: "Cargando..." });
+
+      const formData = new FormData();
+      formData.append('codigo', this.mascota.codigo);
+      formData.append('nombre', this.mascota.nombre);
+      if (this.mascota.edad) formData.append('edad', this.mascota.edad.toString());
+      if (this.mascota.peso) formData.append('peso', this.mascota.peso.toString());
+      formData.append('especie', this.mascota.especie);
+      if (this.mascota.raza) formData.append('raza', this.mascota.raza);
+      if (this.mascota.sexo) formData.append('sexo', this.mascota.sexo);
+      if (this.mascota.detalles) formData.append('detalles', this.mascota.detalles);
+      if (this.file) formData.append('foto', this.file);
+      formData.append('cliente_id', this.selectedClienteId.toString());
+
+      // 🔹 Ver datos antes de enviar
+      console.log("Datos a enviar:");
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      MascotaService.create(formData)
+        .then((response: any) => {
+          Loading.hide();
+          if (response.data.status) {
+            this.mascota = {} as Mascota;
+            this.file = null;
+            this.selectedClienteId = null;
+            this.alert = false;
+            toast(response.data.message, { type: "success" });
+            this.$router.push('/mascotas');
+          } else {
+            toast(response.data.message, { type: "error" });
+          }
+        })
+        .catch((e: any) => {
+          console.log(e);
+          Loading.hide();
+          toast("Error en el servidor, revisa consola.", { type: "error" });
+        });
+    }
+  },
+  mounted() {
+    this.listarClientes();
+  }
+});
+</script>
+
+<style scoped>
+.my-card {
+  border-radius: 12px;
+  padding: 16px;
+}
+</style>

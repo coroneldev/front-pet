@@ -76,10 +76,22 @@
               <q-item-section>Vacunas</q-item-section>
             </q-item>-->
 
-          <!--  <q-separator v-if="rol.id == 1 || rol.id == 2" spaced />
+            <q-separator v-if="rol.id == 1 || rol.id == 2" spaced />
             <q-item-label v-if="rol.id == 1 || rol.id == 2" header class="text-green-7">Transacciones</q-item-label>
 
-            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'cursos'"
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'clientes'"
+              @click="link = 'clientes'" active-class="my-menu-link" to="/clientes">
+              <q-item-section avatar><q-icon name="people" /></q-item-section>
+              <q-item-section>Clientes</q-item-section>
+            </q-item>
+
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'mascotas'"
+              @click="link = 'mascotas'" active-class="my-menu-link" to="/mascotas">
+              <q-item-section avatar><q-icon name="pets" /></q-item-section>
+              <q-item-section>Mascotas</q-item-section>
+            </q-item>
+
+            <!--<q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'cursos'"
               @click="link = 'cursos'" active-class="my-menu-link" to="/cursos">
               <q-item-section avatar><q-icon name="pets" /></q-item-section>
               <q-item-section>Vacunacion</q-item-section>

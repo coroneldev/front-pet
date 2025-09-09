@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'dashboard',
     component: () => import('./components/Dashboard.vue'),
-    meta: {requiresAuth: true},
+    meta: { requiresAuth: true },
     children: [
       {
         path: "/inicio",
@@ -73,7 +73,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-imagen-curso",
         component: () => import("./components/curso/EditImagenCurso.vue"),
       },
-      
+
       {
         path: "/roles",
         name: "list-rol",
@@ -89,8 +89,38 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-rol",
         component: () => import("./components/rol/EditRol.vue"),
       },
+      {
+        path: "/clientes",
+        name: "list-cliente",
+        component: () => import("./components/cliente/ListCliente.vue"),
+      },
+      {
+        path: "/clientes/create",
+        name: "create-cliente",
+        component: () => import("./components/cliente/CreateCliente.vue"),
+      },
+      {
+        path: "/clientes/edit/:id",
+        name: "edit-cliente",
+        component: () => import("./components/cliente/EditCliente.vue"),
+      },
+      {
+        path: "/mascotas",
+        name: "list-mascota",
+        component: () => import("./components/mascota/ListMascota.vue"),
+      },
+      {
+        path: "/mascotas/create",
+        name: "create-mascota",
+        component: () => import("./components/mascota/CreateMascota.vue"),
+      },
+      {
+        path: "/mascotas/edit/:id",
+        name: "edit-mascota",
+        component: () => import("./components/mascota/EditMascota.vue"),
+      },
 
-      
+
     ]
   }
 ];
@@ -101,11 +131,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if ( to.name !== 'login' && !store.getters.loggedIn){
-    router.push({ path: '/login' }).catch(()=>{});
+  if (to.name !== 'login' && !store.getters.loggedIn) {
+    router.push({ path: '/login' }).catch(() => { });
   }
-  else{
-    next(); 
+  else {
+    next();
   }
 });
 
