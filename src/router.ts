@@ -53,26 +53,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "edit-usuario",
         component: () => import("./components/usuario/EditUsuario.vue"),
       },
-      {
-        path: "/cursos",
-        name: "list-curso",
-        component: () => import("./components/curso/ListCurso.vue"),
-      },
-      {
-        path: "/cursos/create",
-        name: "create-curso",
-        component: () => import("./components/curso/CreateCurso.vue"),
-      },
-      {
-        path: "/cursos/edit/:id",
-        name: "edit-curso",
-        component: () => import("./components/curso/EditCurso.vue"),
-      },
-      {
-        path: "/cursos/edit-imagen/:id",
-        name: "edit-imagen-curso",
-        component: () => import("./components/curso/EditImagenCurso.vue"),
-      },
 
       {
         path: "/roles",
@@ -118,6 +98,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/mascotas/edit/:id",
         name: "edit-mascota",
         component: () => import("./components/mascota/EditMascota.vue"),
+      },
+      {
+        path: "/mascotas/edit-imagen/:id",
+        name: "edit-imagen-mascota",
+        component: () => import("./components/mascota/EditImagenMascota.vue"),
       },
 
 

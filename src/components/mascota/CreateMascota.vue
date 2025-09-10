@@ -9,15 +9,31 @@
 
       <q-card-section class="bg-grey-2 my-card">
 
+        <!-- Nombre y Código -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-input outlined v-model="mascota.nombre" label="Nombre *" counter maxlength="50" />
+            <q-input
+              outlined
+              v-model="mascota.nombre"
+              label="Nombre *"
+              counter
+              maxlength="50"
+              required
+            />
           </div>
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-input outlined v-model="mascota.codigo" label="Código *" counter maxlength="20" />
+            <q-input
+              outlined
+              v-model="mascota.codigo"
+              label="Código *"
+              counter
+              maxlength="20"
+              required
+            />
           </div>
         </div>
 
+        <!-- Edad, Peso, Sexo -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-4 q-pa-xs">
             <q-input outlined v-model="mascota.edad" label="Edad" type="number" />
@@ -26,42 +42,60 @@
             <q-input outlined v-model="mascota.peso" label="Peso (kg)" type="number" />
           </div>
           <div class="col-12 col-md-4 q-pa-xs">
-            <q-select outlined v-model="mascota.sexo" :options="['MACHO', 'HEMBRA']" label="Sexo" />
+            <q-select
+              outlined
+              v-model="mascota.sexo"
+              :options="['MACHO', 'HEMBRA']"
+              label="Sexo"
+            />
           </div>
         </div>
 
+        <!-- Especie y Raza -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-input outlined v-model="mascota.especie" label="Especie *" />
+            <q-input
+              outlined
+              v-model="mascota.especie"
+              label="Especie *"
+              required
+            />
           </div>
           <div class="col-12 col-md-6 q-pa-xs">
             <q-input outlined v-model="mascota.raza" label="Raza" />
           </div>
         </div>
 
+        <!-- Detalles -->
         <div class="row q-mt-md">
           <div class="col-12 q-pa-xs">
-            <q-input outlined v-model="mascota.detalles" type="textarea" label="Detalles" />
+            <q-input
+              outlined
+              v-model="mascota.detalles"
+              type="textarea"
+              label="Detalles"
+            />
           </div>
         </div>
 
+        <!-- Combo Cliente -->
         <div class="row q-mt-md">
           <div class="col-12 q-pa-xs">
-            <q-uploader label="Subir foto" accept="image/*" @added="onFileAdded" :max-files="1" />
+            <q-select
+              outlined
+              v-model="selectedClienteId"
+              :options="clientesOptions"
+              label="Cliente *"
+              option-label="nombre"
+              option-value="id"
+              emit-value
+              map-options
+              required
+            />
           </div>
         </div>
 
-        <div class="row q-mt-md">
-          <div class="col-12 q-pa-xs">
-            <q-select outlined v-model="selectedClienteId" :options="clientesOptions" label="Cliente *"
-              option-label="nombre" option-value="id" />
-
-
-          </div>
-
-        </div>
-
-
+        <!-- Botones -->
         <div class="row q-mt-md">
           <q-btn color="green-7" text-color="white" label="Guardar" @click="onModal()" />
           <q-btn color="white" text-color="black" label="Cancelar" class="q-ml-sm" to="/mascotas" />
@@ -70,6 +104,7 @@
       </q-card-section>
     </q-card>
 
+    <!-- Dialog Confirmación -->
     <q-dialog v-model="alert">
       <q-card style="width: 500px; max-width: 70vw;">
         <q-card-section>
@@ -106,7 +141,6 @@ export default defineComponent({
       mascota: {} as Mascota,
       alert: ref(false),
       clientesOptions: [] as Cliente[],
-      file: null as File | null,
       selectedClienteId: null as number | null
     }
   },
@@ -131,9 +165,6 @@ export default defineComponent({
           toast("Error al cargar clientes", { type: "error" });
         });
     },
-    onFileAdded(files: File[]) {
-      this.file = files[0] || null;
-    },
     onGuardar() {
       if (!this.selectedClienteId) {
         toast("Seleccione un cliente válido.", { type: "error" });
@@ -151,7 +182,6 @@ export default defineComponent({
       if (this.mascota.raza) formData.append('raza', this.mascota.raza);
       if (this.mascota.sexo) formData.append('sexo', this.mascota.sexo);
       if (this.mascota.detalles) formData.append('detalles', this.mascota.detalles);
-      if (this.file) formData.append('foto', this.file);
       formData.append('cliente_id', this.selectedClienteId.toString());
 
       // 🔹 Ver datos antes de enviar
@@ -165,7 +195,6 @@ export default defineComponent({
           Loading.hide();
           if (response.data.status) {
             this.mascota = {} as Mascota;
-            this.file = null;
             this.selectedClienteId = null;
             this.alert = false;
             toast(response.data.message, { type: "success" });

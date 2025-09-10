@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    
+
     <q-card flat bordered>
       <q-card-section class="bg-grey-2 my-card">
         <div class="text-h5 text-center">Mascotas</div>
@@ -11,7 +11,7 @@
       <q-card-section class="bg-grey-2 my-card">
 
         <q-btn color="green-7" text-color="white" label="Nuevo" icon-right="add" to="/mascotas/create" />
-        
+
         <div class="q-mt-md">
 
           <q-markup-table flat bordered>
@@ -26,7 +26,7 @@
                 <th class="text-left">Edad</th>
                 <th class="text-left">Peso</th>
                 <th class="text-left">Dueño</th>
-                <th class="text-left">Acción</th>
+                <th class="text-center">Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -41,8 +41,12 @@
                 <td>{{ mascota.peso }}</td>
                 <td>{{ mascota.cliente ? mascota.cliente.nombre : '-' }}</td>
                 <td>
-                  <q-btn round color="green-7" text-color="white" icon="mode_edit" class="q-ml-sm" :to="'/mascotas/edit/'+mascota.id" title="Editar"></q-btn>
-                  <q-btn round color="green-7" text-color="white" icon="delete" class="q-ml-sm" @click="onModal(mascota.id!)" title="Eliminar"></q-btn>
+                  <q-btn round color="green-7" text-color="white" icon="mode_edit" class="q-ml-sm"
+                    :to="'/mascotas/edit/' + mascota.id" title="Editar"></q-btn>
+                  <q-btn round color="green-7" text-color="white" icon="image" class="q-ml-sm"
+                    :to="'/mascotas/edit-imagen/' + mascota.id" title="Editar Imagen"></q-btn>
+                  <q-btn round color="green-7" text-color="white" icon="delete" class="q-ml-sm"
+                    @click="onModal(mascota.id!)" title="Eliminar"></q-btn>
                 </td>
               </tr>
             </tbody>
@@ -81,7 +85,7 @@ import { Loading } from 'quasar';
 
 export default defineComponent({
   name: 'ListMascota',
-  data () {
+  data() {
     return {
       mascotas: [] as any[],
       alert: ref(false),
@@ -90,15 +94,15 @@ export default defineComponent({
   },
   methods: {
     listar() {
-      Loading.show({message: "Cargando..."});
+      Loading.show({ message: "Cargando..." });
       MascotaService.getAll()
         .then((response: any) => {
           Loading.hide();
-          if(response.data.status) {
+          if (response.data.status) {
             this.mascotas = response.data.data;
-            toast(response.data.message, {"type": "success"});
+            toast(response.data.message, { "type": "success" });
           } else {
-            toast(response.data.message, {"type": "error"});
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
@@ -106,22 +110,22 @@ export default defineComponent({
           Loading.hide();
         });
     },
-    onModal(id: number){
+    onModal(id: number) {
       this.alert = true;
       this.idEliminar = id;
     },
-    onEliminar(){ 
-      Loading.show({message: "Cargando..."});
+    onEliminar() {
+      Loading.show({ message: "Cargando..." });
       MascotaService.delete(this.idEliminar)
         .then((response: any) => {
           Loading.hide();
-          if(response.data.status) {
+          if (response.data.status) {
             this.alert = false;
             this.idEliminar = 0;
             this.listar();
-            toast(response.data.message, {"type": "success"});
+            toast(response.data.message, { "type": "success" });
           } else {
-            toast(response.data.message, {"type": "error"});
+            toast(response.data.message, { "type": "error" });
           }
         })
         .catch((e: Error) => {
