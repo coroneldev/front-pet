@@ -27,14 +27,24 @@ class MascotaService {
         return http.get(`/api/mascotas/${id}`, this.config);
     }
 
-    // Crear una nueva mascota
+    // Crear una nueva mascota (JSON o FormData con imagen)
     create(data: any): Promise<any> {
-        return http.post("/api/mascotas", data, this.config);
+        // Si es FormData, no forzar Content-Type
+        const headers = data instanceof FormData
+            ? { Authorization: "Bearer " + this.token }
+            : this.config.headers;
+
+        return http.post("/api/mascotas", data, { headers });
     }
 
     // Actualizar una mascota completa
     update(id: any, data: any): Promise<any> {
-        return http.put(`/api/mascotas/${id}`, data, this.config);
+        // Similar lógica para detectar FormData si es necesario
+        const headers = data instanceof FormData
+            ? { Authorization: "Bearer " + this.token }
+            : this.config.headers;
+
+        return http.put(`/api/mascotas/${id}`, data, { headers });
     }
 
     // Eliminar una mascota

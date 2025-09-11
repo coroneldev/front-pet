@@ -100,12 +100,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("./components/mascota/EditMascota.vue"),
       },
       {
-        path: "/mascotas/edit-imagen/:id",
-        name: "edit-imagen-mascota",
-        component: () => import("./components/mascota/EditImagenMascota.vue"),
+        path: "/mascotas/view/:id",
+        name: "view-mascota",
+        component: () => import("./components/mascota/ViewMascota.vue"),
       },
-
-
+      
     ]
   }
 ];

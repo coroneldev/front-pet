@@ -43,8 +43,10 @@
                 <td>
                   <q-btn round color="green-7" text-color="white" icon="mode_edit" class="q-ml-sm"
                     :to="'/mascotas/edit/' + mascota.id" title="Editar"></q-btn>
+
                   <q-btn round color="green-7" text-color="white" icon="image" class="q-ml-sm"
-                    :to="'/mascotas/edit-imagen/' + mascota.id" title="Editar Imagen"></q-btn>
+                    :to="'/mascotas/view/' + mascota.id" title="Mostrar Registro"></q-btn>
+                    
                   <q-btn round color="green-7" text-color="white" icon="delete" class="q-ml-sm"
                     @click="onModal(mascota.id!)" title="Eliminar"></q-btn>
                 </td>
