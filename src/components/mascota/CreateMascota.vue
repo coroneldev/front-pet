@@ -2,7 +2,7 @@
   <div class="hello">
     <q-card flat bordered>
       <q-card-section class="bg-grey-2 my-card">
-        <div class="text-h5 text-center">Nueva Mascota</div>
+        <div class="text-h5 text-center">Registro Nueva Mascota</div>
       </q-card-section>
 
       <q-separator color="grey-5" />
@@ -35,7 +35,15 @@
         <!-- Especie y Raza -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-input outlined v-model="mascota.especie" label="Especie *" required />
+            <q-select
+              outlined
+              v-model="mascota.especie"
+              :options="especiesOptions"
+              label="Especie *"
+              emit-value
+              map-options
+              required
+            />
           </div>
           <div class="col-12 col-md-6 q-pa-xs">
             <q-input outlined v-model="mascota.raza" label="Raza" />
@@ -63,8 +71,17 @@
         <!-- Combo Cliente -->
         <div class="row q-mt-md">
           <div class="col-12 q-pa-xs">
-            <q-select outlined v-model="selectedClienteId" :options="clientesOptions" label="Cliente *"
-              option-label="nombre" option-value="id" emit-value map-options required />
+            <q-select
+              outlined
+              v-model="selectedClienteId"
+              :options="clientesOptions"
+              label="Cliente *"
+              option-label="nombre"
+              option-value="id"
+              emit-value
+              map-options
+              required
+            />
           </div>
         </div>
 
@@ -115,7 +132,12 @@ export default defineComponent({
       fotoFile: null as File | null,
       alert: ref(false),
       clientesOptions: [] as Cliente[],
-      selectedClienteId: null as number | null
+      selectedClienteId: null as number | null,
+      especiesOptions: [
+        { label: 'GATO', value: 'GATO' },
+        { label: 'PERRO', value: 'PERRO' },
+        { label: 'OTROS', value: 'OTROS' }
+      ]
     }
   },
   methods: {

@@ -5,12 +5,12 @@ export default interface Mascota {
   edad?: number;
   peso?: number;
   foto?: string;
-  especie: string;
+  especie: 'GATO' | 'PERRO' | 'OTROS';  // Restricción a estas opciones
   raza?: string;
   sexo?: 'MACHO' | 'HEMBRA';
   detalles?: string;
-  cliente_id: number;          // ID que se enviará al backend
-  cliente?: {                  // Opcional: objeto completo para mostrar en formulario
+  cliente_id: number;   // ID que se enviará al backend
+  cliente?: {           // Opcional: objeto completo para mostrar en formulario
     id: number;
     nombre: string;
   };
