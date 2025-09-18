@@ -104,6 +104,17 @@ const routes: Array<RouteRecordRaw> = [
         name: "view-mascota",
         component: () => import("./components/mascota/ViewMascota.vue"),
       },
+      {
+        path: "/vacunas",
+        name: "list-vacuna",
+        component: () => import("./components/vacuna/ListVacuna.vue"),
+      },
+
+      {
+        path: "/controles",
+        name: "list-control",
+        component: () => import("./components/control/ListControl.vue"),
+      },
       
     ]
   }

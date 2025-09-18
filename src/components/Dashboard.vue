@@ -91,6 +91,24 @@
               <q-item-section>Mascotas</q-item-section>
             </q-item>
 
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'vacunas'"
+              @click="link = 'vacunas'" active-class="my-menu-link" to="/vacunas">
+              <q-item-section avatar><q-icon name="vaccines" /></q-item-section>
+              <q-item-section>Vacunas</q-item-section>
+            </q-item>
+
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'controles'"
+              @click="link = 'controles'" active-class="my-menu-link" to="/controles">
+              <q-item-section avatar><q-icon name="medical_services" /></q-item-section>
+              <q-item-section>Control</q-item-section>
+            </q-item>
+
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'vacunas'"
+              @click="link = 'vacunas'" active-class="my-menu-link" to="/vacunas">
+              <q-item-section avatar><q-icon name="schedule" /></q-item-section>
+              <q-item-section>Citas</q-item-section>
+            </q-item>
+
             <!--<q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'cursos'"
               @click="link = 'cursos'" active-class="my-menu-link" to="/cursos">
               <q-item-section avatar><q-icon name="pets" /></q-item-section>

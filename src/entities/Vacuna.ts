@@ -1,8 +1,18 @@
+import Usuario from './Usuario';
+
 export default interface Vacuna {
   id?: number;
-  nombre: string;                     // Nombre de la vacuna
-  descripcion?: string;               // Descripción opcional
-  especie_destinada: string;          // Especie a la que está destinada
-  estado?: boolean;                   // Activa o inactiva
+  nombre: string;
+  descripcion?: string;
+  numero_dosis_requeridas: number;
+  intervalo_dosis: number;    // En días
+  especie_destinada: string;
+  estado: boolean;
 
+  usuario_id: number;         // ID que se enviará al backend
+  usuario?: Usuario;          // Objeto opcional (el veterinario asignado)
+
+  created_at?: string;
+  updated_at?: string;
+  deleted_at?: string | null;
 }
