@@ -103,8 +103,8 @@
               <q-item-section>Control</q-item-section>
             </q-item>
 
-            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'vacunas'"
-              @click="link = 'vacunas'" active-class="my-menu-link" to="/vacunas">
+            <q-item v-if="rol.id == 1 || rol.id == 2" clickable v-ripple :active="link === 'citas'"
+              @click="link = 'citas'" active-class="my-menu-link" to="/citas">
               <q-item-section avatar><q-icon name="schedule" /></q-item-section>
               <q-item-section>Citas</q-item-section>
             </q-item>

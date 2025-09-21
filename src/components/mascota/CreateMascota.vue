@@ -9,13 +9,10 @@
 
       <q-card-section class="bg-grey-2 my-card">
 
-        <!-- Nombre y Código -->
+        <!-- Nombre -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
             <q-input outlined v-model="mascota.nombre" label="Nombre *" counter maxlength="50" required />
-          </div>
-          <div class="col-12 col-md-6 q-pa-xs">
-            <q-input outlined v-model="mascota.codigo" label="Código *" counter maxlength="20" required />
           </div>
         </div>
 
@@ -35,15 +32,8 @@
         <!-- Especie y Raza -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-select
-              outlined
-              v-model="mascota.especie"
-              :options="especiesOptions"
-              label="Especie *"
-              emit-value
-              map-options
-              required
-            />
+            <q-select outlined v-model="mascota.especie" :options="especiesOptions" label="Especie *" emit-value
+              map-options required />
           </div>
           <div class="col-12 col-md-6 q-pa-xs">
             <q-input outlined v-model="mascota.raza" label="Raza" />
@@ -57,31 +47,11 @@
           </div>
         </div>
 
-        <!-- Foto -->
-        <div class="row q-mt-md">
-          <div class="col-12 q-pa-xs">
-            <q-file outlined v-model="fotoFile" label="Foto" accept=".jpg,.jpeg,.png" clearable>
-              <template v-slot:prepend>
-                <q-icon name="photo_camera" />
-              </template>
-            </q-file>
-          </div>
-        </div>
-
         <!-- Combo Cliente -->
         <div class="row q-mt-md">
           <div class="col-12 q-pa-xs">
-            <q-select
-              outlined
-              v-model="selectedClienteId"
-              :options="clientesOptions"
-              label="Cliente *"
-              option-label="nombre"
-              option-value="id"
-              emit-value
-              map-options
-              required
-            />
+            <q-select outlined v-model="selectedClienteId" :options="clientesOptions" label="Cliente *"
+              option-label="nombre" option-value="id" emit-value map-options required />
           </div>
         </div>
 
@@ -129,7 +99,6 @@ export default defineComponent({
   data() {
     return {
       mascota: {} as Mascota,
-      fotoFile: null as File | null,
       alert: ref(false),
       clientesOptions: [] as Cliente[],
       selectedClienteId: null as number | null,
@@ -167,40 +136,29 @@ export default defineComponent({
         return;
       }
 
-      if (!this.mascota.codigo || !this.mascota.nombre || !this.mascota.especie) {
+      if (!this.mascota.nombre || !this.mascota.especie) {
         toast("Complete los campos obligatorios (*)", { type: "error" });
         return;
       }
 
-      Loading.show({ message: "Cargando..." });
+      Loading.show({ message: "Guardando mascota..." });
 
-      const formData = new FormData();
-      formData.append('codigo', this.mascota.codigo);
-      formData.append('nombre', this.mascota.nombre);
-      if (this.mascota.edad) formData.append('edad', this.mascota.edad.toString());
-      if (this.mascota.peso) formData.append('peso', this.mascota.peso.toString());
-      formData.append('especie', this.mascota.especie);
-      if (this.mascota.raza) formData.append('raza', this.mascota.raza);
-      if (this.mascota.sexo) formData.append('sexo', this.mascota.sexo);
-      if (this.mascota.detalles) formData.append('detalles', this.mascota.detalles);
-      formData.append('cliente_id', this.selectedClienteId.toString());
+      const payload = {
+        nombre: this.mascota.nombre,
+        edad: this.mascota.edad,
+        peso: this.mascota.peso,
+        especie: this.mascota.especie,
+        raza: this.mascota.raza,
+        sexo: this.mascota.sexo,
+        detalles: this.mascota.detalles,
+        cliente_id: this.selectedClienteId
+      };
 
-      // Enviar foto si existe
-      if (this.fotoFile && this.fotoFile instanceof File) {
-        formData.append('foto', this.fotoFile, this.fotoFile.name);
-      }
-
-      // Ver datos antes de enviar
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
-
-      MascotaService.create(formData)
+      MascotaService.create(payload)
         .then((response: any) => {
           Loading.hide();
           if (response.data.status) {
             this.mascota = {} as Mascota;
-            this.fotoFile = null;
             this.selectedClienteId = null;
             this.alert = false;
             toast(response.data.message, { type: "success" });

@@ -115,7 +115,40 @@ const routes: Array<RouteRecordRaw> = [
         name: "list-control",
         component: () => import("./components/control/ListControl.vue"),
       },
-      
+      {
+        path: "/controles/create",
+        name: "create-control",
+        component: () => import("./components/control/CreateControl.vue"),
+      },
+      {
+        path: "/controles/edit/:id",
+        name: "edit-control",
+        component: () => import("./components/control/EditControl.vue"),
+      },
+      {
+        path: "/mascotas/editImage/:id",
+        name: "editImage-mascota",
+        component: () => import("./components/mascota/EditImagenMascota.vue"),
+      },
+
+      /** Citas */
+      {
+        path: "/citas",
+        name: "list-cita",
+        component: () => import("./components/cita/ListCita.vue"),
+      },
+
+      {
+        path: "/citas/create",
+        name: "create-cita",
+        component: () => import("./components/cita/CreateCita.vue"),
+      },
+      {
+        path: "/citas/edit/:id",
+        name: "edit-cita",
+        component: () => import("./components/cita/EditCita.vue"),
+      },
+
     ]
   }
 ];
