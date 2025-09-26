@@ -41,6 +41,11 @@
                 <td>{{ mascota.peso }}</td>
                 <td>{{ mascota.cliente ? mascota.cliente.nombre : '-' }}</td>
                 <td>
+                  <q-btn round color="green-7" text-color="white" icon="picture_as_pdf" class="q-ml-sm"
+                    :href="`http://localhost:8000/api/mascota/codigo/${mascota.codigo}/pdf`" target="_blank"
+                    title="Carnet de Vacunas">
+                  </q-btn>
+
                   <q-btn round color="green-7" text-color="white" icon="mode_edit" class="q-ml-sm"
                     :to="'/mascotas/edit/' + mascota.id" title="Editar"></q-btn>
 
