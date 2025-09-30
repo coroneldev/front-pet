@@ -26,11 +26,11 @@
           </div>
         </div>
 
-        <!-- Combo Usuario Responsable -->
+        <!-- Combo Veterinario Responsable -->
         <div class="row q-mt-md">
           <div class="col-12 col-md-6 q-pa-xs">
-            <q-select outlined v-model="selectedUsuarioId" :options="usuariosOptions" label="Usuario Responsable *"
-              option-label="nombre" option-value="id" emit-value map-options required />
+            <q-select outlined v-model="selectedUsuarioId" :options="usuariosOptions" label="Veterinario *"
+              option-label="nombres" option-value="id" emit-value map-options required />
           </div>
         </div>
 
